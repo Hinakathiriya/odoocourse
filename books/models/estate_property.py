@@ -1,4 +1,8 @@
 from odoo import models, fields, api
+<<<<<<< HEAD
+=======
+from odoo.exceptions import UserError
+>>>>>>> new
 
 
 class Test(models.Model):
@@ -24,6 +28,17 @@ class EstatePropertOffer(models.Model):
     status = fields.Selection([('accepted', 'Accepted'),('refuse', 'Refused')])
     partner_id = fields.Many2one('res.partner')
     property_id = fields.Many2one('estate.property')
+    
+    
+     def action_accepted(self):
+    	for record in self:
+    	    record.status = 'accepted'
+    	    record.property_id.selling_price = record.selling_price
+    	    record.property_id.buyer_id = record.partner_id
+             
+    def action_refused(self):
+    	for record in self:
+    	    record.status = 'refuse'
 
 
 class EstatePropertyTag(models.Model):
@@ -77,10 +92,19 @@ class EstateProperty(models.Model):
     test_id = fields.Many2one('test')
     property_tag_ids = fields.Many2many('estate.property.tag')
     property_offer_ids = fields.One2many('estate.property.offer', 'property_id')
+<<<<<<< HEAD
      total_area = fields.Integer(compute="_compute_area", inverse="_inverse_area")
     best_price = fields.Float(compute="_compute_best_price")
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline")
+=======
+    total_area = fields.Integer(compute="_compute_area", inverse="_inverse_area")
+    best_price = fields.Float(compute="_compute_best_price")
+    validity = fields.Integer(default=7)
+    date_deadline = fields.Date(compute="_compute_date_deadline")
+    state = fields.Selection([('new','New'),('sold','Sold'),('cancel','cancelled')],default='new')
+    
+>>>>>>> new
 
     @api.onchange('garden')
     def _onchange_garden(self):
@@ -117,5 +141,22 @@ class EstateProperty(models.Model):
     def _inverse_area(self):
         for record in self:
             record.living_area = record.garden_area = record.total_area / 2
+<<<<<<< HEAD
+=======
+            
+            
+     def action_sold(self):
+    	for record in self:
+    		if record.state=='cancel':
+    		    raise UserError("cancel property can not be sold")
+    		record.state='sold'
+
+
+    def action_cancel(self):
+    	for record in self:
+    		if record.state=='sold':
+    		    raise UserError("sold property can not be cancelled")
+    		record.state='cancel'
+>>>>>>> new
 
 
