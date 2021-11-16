@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class Test(models.Model):
@@ -24,6 +25,17 @@ class EstatePropertOffer(models.Model):
     status = fields.Selection([('accepted', 'Accepted'),('refuse', 'Refused')])
     partner_id = fields.Many2one('res.partner')
     property_id = fields.Many2one('estate.property')
+    
+    
+     def action_accepted(self):
+    	for record in self:
+    	    record.status = 'accepted'
+    	    record.property_id.selling_price = record.selling_price
+    	    record.property_id.buyer_id = record.partner_id
+             
+    def action_refused(self):
+    	for record in self:
+    	    record.status = 'refuse'
 
 
 class EstatePropertyTag(models.Model):
@@ -77,3 +89,61 @@ class EstateProperty(models.Model):
     test_id = fields.Many2one('test')
     property_tag_ids = fields.Many2many('estate.property.tag')
     property_offer_ids = fields.One2many('estate.property.offer', 'property_id')
+    total_area = fields.Integer(compute="_compute_area", inverse="_inverse_area")
+    best_price = fields.Float(compute="_compute_best_price")
+    validity = fields.Integer(default=7)
+    date_deadline = fields.Date(compute="_compute_date_deadline")
+    state = fields.Selection([('new','New'),('sold','Sold'),('cancel','cancelled')],default='new')
+    
+
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area = 10
+                record.garden_orientation = 'north'
+            else:
+                record.garden_area = 0
+                record.garden_orientation = None
+
+    @api.depends('validity')
+    def _compute_date_deadline(self):
+        for record in self:
+            record.date_deadline = fields.Date.add(record.date_availability, days=record.validity)
+            # date_availability
+
+    @api.depends('property_offer_ids.price')
+    def _compute_best_price(self):  # Recordset [ Collection  of records]
+        for record in self:
+            max_price = 0
+            for offer in record.property_offer_ids:
+                if offer.price > max_price:
+                    max_price = offer.price
+            record.best_price = max_price
+
+
+    @api.depends('living_area', 'garden_area')
+    def _compute_area(self):
+        print("\n\n ----- _compute_area method call")
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    def _inverse_area(self):
+        for record in self:
+            record.living_area = record.garden_area = record.total_area / 2
+            
+            
+     def action_sold(self):
+    	for record in self:
+    		if record.state=='cancel':
+    		    raise UserError("cancel property can not be sold")
+    		record.state='sold'
+
+
+    def action_cancel(self):
+    	for record in self:
+    		if record.state=='sold':
+    		    raise UserError("sold property can not be cancelled")
+    		record.state='cancel'
+
+
