@@ -2,7 +2,7 @@ from odoo import models, fields
     
     
 class Author(models.Model):
-	_name = 'author'
+	_name ='author'
 	_description = 'Author'
 
 	name = fields.Char()
@@ -37,7 +37,7 @@ class EstatePropertyLibrary(models.Model):
      _sql_constraints = [('isbn_unique', 'unique(isbn)', 'Duplicate isbn not allowed')]
 
 
-     name = fields.Char()
+     name = fields.Char(string="Book Name", default="Book", required=True)
      price = fields.Float()
      # author_ids = fields.One2many('author', 'book_id')
      author_ids = fields.Many2many('author')
