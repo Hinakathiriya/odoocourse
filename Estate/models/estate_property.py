@@ -1,8 +1,9 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 
+
 class Test(models.Model):
-    _name='test'
+    _name = 'test'
     _description = 'Test'
     # _rec_name = data
 
@@ -16,25 +17,28 @@ class Test(models.Model):
             res.append((r.id, r.data))
         return res
 
+
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
     _description = 'Estate Property Offer'
+    _order = 'price desc'
 
     price = fields.Float()
-    status = fields.Selection([('accepted', 'Accepted'),('refuse', 'Refused')])
+    status = fields.Selection([('accepted', 'Accepted'), ('refuse', 'Refused')])
     partner_id = fields.Many2one('res.partner')
     property_id = fields.Many2one('estate.property')
+    property_type_id = fields.Many2one(related='property_id.property_type_id', store=True)
 
     def action_accepted(self):
-    	for record in self:
-    	    record.status = 'accepted'
-    	    record.property_id.selling_price = record.selling_price
-    	    record.property_id.buyer_id = record.partner_id
+        for record in self:
+            record.status = 'accepted'
+            # Set Buyer and selling price
+            record.property_id.selling_price = record.price
+            record.property_id.buyer_id = record.partner_id
 
     def action_refused(self):
-    	for record in self:
-    	    record.status = 'refuse'
-
+        for record in self:
+            record.status = 'refuse'
 
 
 class EstatePropertyTag(models.Model):
@@ -49,23 +53,34 @@ class EstatePropertyTag(models.Model):
 class EstatePropertyType(models.Model):
     _name = 'estate.property.type'
     _description = 'Estate Property Type'
-    _sql_constraints = [('unique_property_tag_name', 'unique(name)', 'Tag cannot be duplicated')]
+    _sql_constraints = [('unique_property_type_name', 'unique(name)', 'Type cannot be duplicated')]
 
     name = fields.Char()
     property_ids = fields.One2many('estate.property', 'property_type_id')
+    offer_ids = fields.One2many('estate.property.offer', 'property_type_id')
+    offer_count = fields.Integer(compute='_compute_offer_count')
+
+    @api.depends('offer_ids')
+    def _compute_offer_count(self):
+        for record in self:
+            record.offer_count = len(record.offer_ids)
 
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'Estate Property'
     _sql_constraints = [('positive_price', 'check(expected_price >0)', 'Enter positive value')]
+    _order = "id desc"
 
-    name = fields.Char(string="Property Name", default="Unknown", required=True)
+    # def test(self):
+    #     return fields.Datetime.now()
+
+    name = fields.Char(string="Title", default="Unknown", required=True)
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(default=lambda self: fields.Datetime.now(), copy=False)
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float(copy=False, required=True)
+    selling_price = fields.Float(copy=False, readonly=True)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -77,10 +92,9 @@ class EstateProperty(models.Model):
         ('south', 'South'),
         ('east', 'East'),
         ('west', 'West')
-        ])
+    ])
     active = fields.Boolean(default=True)
     image = fields.Image()
-
     property_type_id = fields.Many2one('estate.property.type')
     salesman_id = fields.Many2one('res.users')
     buyer_id = fields.Many2one('res.partner')
@@ -88,12 +102,11 @@ class EstateProperty(models.Model):
     property_tag_ids = fields.Many2many('estate.property.tag')
     property_offer_ids = fields.One2many('estate.property.offer', 'property_id')
     total_area = fields.Integer(compute="_compute_area", inverse="_inverse_area")
-
     best_price = fields.Float(compute="_compute_best_price")
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline")
-    state = fields.Selection([('new','New'),('sold','Sold'),('cancel','cancelled')],default='new')
-
+    state = fields.Selection([('new', 'New'), ('sold', 'Sold'), ('cancel', 'Cancelled')], default='new')
+    currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
 
     @api.onchange('garden')
     def _onchange_garden(self):
@@ -130,27 +143,22 @@ class EstateProperty(models.Model):
         for record in self:
             record.living_area = record.garden_area = record.total_area / 2
 
-
     def action_sold(self):
-    	for record in self:
-    		if record.state=='cancel':
-    		    raise UserError("cancel property can not be sold")
-    		record.state='sold'
-
+        # print("\n\n In action sold")
+        for record in self:
+            if record.state == 'cancel':
+                raise UserError("Cancel Property cannot be sold")
+            record.state = 'sold'
+            # return some action
 
     def action_cancel(self):
-    	for record in self:
-    		if record.state=='sold':
-    		    raise UserError("sold property can not be cancelled")
-    		record.state='cancel'
+        for record in self:
+            if record.state == 'sold':
+                raise UserError("Sold Property cannot be canceled")
+            record.state = 'cancel'
 
     @api.constrains('living_area', 'garden_area')
     def _check_garden_area(self):
         for record in self:
             if record.living_area < record.garden_area:
                 raise ValidationError("Garden cannot be bigger than living area")
-
-
-
-
-

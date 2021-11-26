@@ -27,10 +27,6 @@ class BookPublisher(models.Model):
 
 	name = fields.Char()
 
-
-
-
-
 class EstatePropertyLibrary(models.Model):
      _name = 'books.library'
      _description = 'Library data'
@@ -48,5 +44,6 @@ class EstatePropertyLibrary(models.Model):
      publisher_id = fields.Many2one('books.publisher')
      edition = fields.Char() # Many 2 one 
      date = fields.Date()
+
      
 
