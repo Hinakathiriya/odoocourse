@@ -3,7 +3,7 @@
     'name': 'Real Estate',
     'category' : 'Sales',
     'application' : True,
-    'depends' : ['base','estate','account'],
+    #'depends' : ['base','estate','account'],
     'data' : [
     	'security/ir.model.access.csv',
     	'views/estate_menus.xml',

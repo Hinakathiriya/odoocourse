@@ -44,7 +44,7 @@ class EstatePropertyOffer(models.Model):
 class EstatePropertyTag(models.Model):
     _name = 'estate.property.tag'
     _description = 'Estate Property Tag'
-    _sql_constraints = [('unique_property_tag_name', 'unique(name)', 'Tag cannot be duplicated')]
+    #_sql_constraints = [('unique_property_tag_name', 'unique(name)', 'Tag cannot be duplicated')]
 
     name = fields.Char()
     color = fields.Integer()
@@ -53,7 +53,7 @@ class EstatePropertyTag(models.Model):
 class EstatePropertyType(models.Model):
     _name = 'estate.property.type'
     _description = 'Estate Property Type'
-    _sql_constraints = [('unique_property_type_name', 'unique(name)', 'Type cannot be duplicated')]
+    #_sql_constraints = [('unique_property_type_name', 'unique(name)', 'Type cannot be duplicated')]
 
     name = fields.Char()
     property_ids = fields.One2many('estate.property', 'property_type_id')
@@ -69,7 +69,7 @@ class EstatePropertyType(models.Model):
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'Estate Property'
-    _sql_constraints = [('positive_price', 'check(expected_price >0)', 'Enter positive value')]
+    #_sql_constraints = [('positive_price', 'check(expected_price >0)', 'Enter positive value')]
     _order = "id desc"
 
     # def test(self):
@@ -162,3 +162,13 @@ class EstateProperty(models.Model):
         for record in self:
             if record.living_area < record.garden_area:
                 raise ValidationError("Garden cannot be bigger than living area")
+
+    def open_offers(self):
+        return {
+            "name":"Offers",
+            "type":"ir.actions.act_window",
+            "res_model":"estate.property.offer",
+            "views":"[[False,'tree']]",
+            "target":"new",
+            "domain":"[('property_id','=','self.id')]"
+        }
