@@ -134,8 +134,8 @@
                                     <!--<button class="btn btn-primary" name="%(real_estate_properties_offer_action)d" type="action">
                                         <li><field name="property_offer_ids"/></li>
                                     </button>-->
-                                     <button class="btn btn-primary" name="open_offers" type="object">
-                                        <li><field name="property_offer_ids"/></li>
+                                    <button class="btn btn-primary" name="open_offers" type="object">
+                                        <field name="property_offer_ids"/>
                                     </button>
                                 </ul>
                             </div>
@@ -196,7 +196,7 @@
                         <field name="property_type_id" options="{'no_create':True, 'no_open': True}"/>
                         <group>
                         <group>
-                            <field name="test_id"/>
+                            <!--<field name="test_id"/>-->
                             <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </group>
                         <group>

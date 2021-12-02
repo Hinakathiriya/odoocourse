@@ -164,11 +164,13 @@ class EstateProperty(models.Model):
                 raise ValidationError("Garden cannot be bigger than living area")
 
     def open_offers(self):
+        view_id = self.env.ref('estate.estate_property_offer_tree').id
         return {
-            "name":"Offers",
-            "type":"ir.actions.act_window",
-            "res_model":"estate.property.offer",
-            "views":"[[False,'tree']]",
-            "target":"new",
-            "domain":"[('property_id','=','self.id')]"
+            "name": "Offers",
+            "type": "ir.actions.act_window",
+            "res_model": "estate.property.offer",
+            "views": [[view_id, 'tree']],
+            # "res_id": 2,
+            "target": "new",
+            "domain": [('property_id', '=', self.id)]
         }
