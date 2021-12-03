@@ -144,12 +144,11 @@ class EstateProperty(models.Model):
             record.living_area = record.garden_area = record.total_area / 2
 
     def action_sold(self):
-        # print("\n\n In action sold")
         for record in self:
             if record.state == 'cancel':
                 raise UserError("Cancel Property cannot be sold")
             record.state = 'sold'
-            # return some action
+
 
     def action_cancel(self):
         for record in self:

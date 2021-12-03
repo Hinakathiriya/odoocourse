@@ -8,8 +8,9 @@ from odoo import models, fields, api
 class EstateProperty(models.Model):
     _inherit = 'estate.property'
 
-
-    def action_sold(self):
+ def action_sold(self):
+        # To call the orignal method using super
+        super(EstateProperty, self).action_sold()
         print('\n\nSold Button in estate account clicked ')
         for record in self:
             vals = {}
@@ -23,7 +24,6 @@ class EstateProperty(models.Model):
                 (0,0, {'name': "Administrative Charges", 'quantity': 1, 'price_unit': 1000})
                 ]
             self.env['account.move'].create(vals)
-
 
 #class EstateProperty(models,Model):
   #  inherit = 'estate.property'

@@ -8,7 +8,9 @@
         'security/access_security.xml',
     	'security/ir.model.access.csv',
     	'views/estate_menus.xml',
+        'wizard/create_sold_invoice_views.xml',
     	'views/estate_property_views.xml',
+
     ],
 }
 	
