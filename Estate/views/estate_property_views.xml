@@ -134,8 +134,8 @@
                                     <!--<button class="btn btn-primary" name="%(real_estate_properties_offer_action)d" type="action">
                                         <li><field name="property_offer_ids"/></li>
                                     </button>-->
-                                    <button class="btn btn-primary" name="open_offers" type="object">
-                                        <field name="property_offer_ids"/>
+                                     <button class="btn btn-primary" name="open_offers" type="object">
+                                        <li><field name="property_offer_ids"/></li>
                                     </button>
                                 </ul>
                             </div>
@@ -186,8 +186,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <!--<button name="%(action_create_sold_invoice)d" type="action" string="Sold" attrs="{'invisible': [('state','=', 'sold')]}"/>-->
-                    <button name="%(action_create_sold_invoice)d" type="action" string="Sold" attrs="{'invisible': [('state','=', 'sold')]}" context="{'default_partner_id': buyer_id}"/>
+                    <button name="action_sold" type="object" string="Sold" attrs="{'invisible': [('state','=', 'sold')]}"/>
                     <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': [('state','=', 'sold')]}"/>
                     <field name="state" widget="statusbar"/>
 		        </header>
@@ -197,7 +196,7 @@
                         <field name="property_type_id" options="{'no_create':True, 'no_open': True}"/>
                         <group>
                         <group>
-                            <!--<field name="test_id"/>-->
+                            <field name="test_id"/>
                             <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </group>
                         <group>
@@ -290,7 +289,7 @@
     </record>
     
  
-<!--    <record id="estate_property_book_tree" model="ir.ui.view">
+    <record id="estate_property_book_tree" model="ir.ui.view">
         <field name="name">Estate Book Name</field>
         <field name="model">book</field>
         <field name="arch" type="xml">
@@ -451,7 +450,7 @@
                 </sheet>
             </form>
         </field>
-    </record>-->
+    </record>
     
   
 
