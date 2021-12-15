@@ -31,8 +31,7 @@
         <field name="res_model">books.library</field>
         <field name="view_mode">tree,form</field>
     </record>
-    
-    
+
      <record id="real_estate_author_action" model="ir.actions.act_window">
         <field name="name">Book Author</field>
         <field name="res_model">author</field>
@@ -50,40 +49,40 @@
         <field name="res_model">books.department</field>
         <field name="view_mode">tree,form</field>
     </record>
-    
-      <record id="real_estate_publisher_action" model="ir.actions.act_window">
-        <field name="name">Book Publisher</field>
-        <field name="res_model">books.publisher</field>
+
+    <record id="real_estate_department_action" model="ir.actions.act_window">
+        <field name="name">Book Department</field>
+        <field name="res_model">books.department</field>
         <field name="view_mode">tree,form</field>
     </record>
-
-
 
     <menuitem id="menu_real_estate_root" name="Real Estate">
         <menuitem id="menu_real_estate_advertisements" name="Advertisements">
             <menuitem id="menu_real_estate_action" action="real_estate_properties_action"/>
             <menuitem id="menu_real_estate_offer_action" action="real_estate_properties_offer_action"/>
         </menuitem>
-        
     </menuitem>
+
     <menuitem id="menu_real_estate_book" name="Books" parent="menu_real_estate_root"/>
     <menuitem id="menu_real_estate_book_action" parent="menu_real_estate_book" action="books_action"/>
     
     <menuitem id="menu_real_estate_property_type" name="Setting" parent="menu_real_estate_root"/>
-    <menuitem id="menu_real_estate_property_type_action" parent="menu_real_estate_property_type"     	   action="real_estate_properties_type_action"/>
-    
-    
+    <menuitem id="menu_real_estate_property_type_action" parent="menu_real_estate_property_type" action="real_estate_properties_type_action"/>
+
+    <menuitem id="menu_real_estate_print_reporting" name="Reporting" parent="menu_real_estate_root"/>
+    <menuitem id="menu_reporting_print_book" parent="menu_real_estate_print_reporting" action="estate.action_print_report_wizard_action"/>
+
+
      <menuitem id="menu_real_estate_root" name="Real Estate">
         <menuitem id="menu_real_estate_library_action" name="Library">
-    	     <menuitem id="menu_real_estate_library" action="real_estate_library_action"/>              		     <menuitem id="menu_real_estate_author" action="real_estate_author_action"/> 
-    	     <menuitem id="menu_real_estate_category" action="real_estate_category_action"/> 
-    	     <menuitem id="menu_real_estate_department" action="real_estate_department_action"/> 
-    	     <menuitem id="menu_real_estate_publisher" action="real_estate_publisher_action"/> 
+    	     <menuitem id="menu_real_estate_library" action="real_estate_library_action"/>
+              <menuitem id="menu_real_estate_author" action="real_estate_author_action"/>
+    	     <menuitem id="menu_real_estate_category" action="real_estate_category_action"/>
+    	     <menuitem id="menu_real_estate_department" action="real_estate_department_action"/>
+    	     <menuitem id="menu_real_estate_publisher" action="real_estate_publisher_action"/>
         </menuitem>
     </menuitem>
-    
-   
-    
+
 </odoo>
 
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add view for wizard -->
+    <record id="view_print_report" model="ir.ui.view">
+        <field name="name">Print Report</field>
+        <field name="model">print.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="amount"/>
+                </group>
+                <footer>
+                    <button name="print" class="btn-primary" type="object" string="Print"/>
+                    <button string="No" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Add action for the wizard -->
+    <record id="action_print_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Print Report</field>
+        <field name="res_model">print.report</field>
+         <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>

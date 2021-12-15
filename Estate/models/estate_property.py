@@ -24,17 +24,49 @@ class EstatePropertyOffer(models.Model):
     _order = 'price desc'
 
     price = fields.Float()
-    status = fields.Selection([('accepted', 'Accepted'), ('refuse', 'Refused')])
+    status = fields.Selection([('accepted', 'Accepted'),('refuse', 'Refused')])
     partner_id = fields.Many2one('res.partner')
     property_id = fields.Many2one('estate.property')
     property_type_id = fields.Many2one(related='property_id.property_type_id', store=True)
 
     def action_accepted(self):
+        # Open the view only if we find the duplicate price or same price
         for record in self:
-            record.status = 'accepted'
-            # Set Buyer and selling price
-            record.property_id.selling_price = record.price
-            record.property_id.buyer_id = record.partner_id
+            # record.price
+            same_price = []
+            for rec in record.property_id.property_offer_ids:
+                if rec.price == record.price and rec.id != record.id:
+                    same_price.append(rec)
+
+            if same_price:
+                # view_id = self.env.ref('estate.estate_property_offer_tree').id
+                partner_ids = [record.partner_id.id]
+                for r in same_price:
+                    partner_ids.append(r.partner_id.id)
+                return {
+                    "name": "Confirm Accept",
+                    "type": "ir.actions.act_window",
+                    "res_model": "confirm.accept",
+                    "views": [[False, 'form']],
+                    # "res_id": 2,
+                    "target": "new",
+                    "context" : {'default_selected_partner_id' : record.partner_id.id, 'partners': partner_ids},
+                    "domain": [('selected_partner_id', 'in', partner_ids)]
+                }
+            else:
+                pass
+
+
+        # for record in self:
+        #     # Do something to change status of other properties as rejected
+        #     for rec in record.property_id.property_offer_ids:
+        #         rec.status = 'refuse'
+        #
+        #     record.status = 'accepted'
+        #     # Set Buyer and selling price
+        #     record.property_id.selling_price = record.price
+        #     record.property_id.buyer_id = record.partner_id
+
 
     def action_refused(self):
         for record in self:
@@ -66,14 +98,14 @@ class EstatePropertyType(models.Model):
             record.offer_count = len(record.offer_ids)
 
 
+
+
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'Estate Property'
     #_sql_constraints = [('positive_price', 'check(expected_price >0)', 'Enter positive value')]
     _order = "id desc"
 
-    # def test(self):
-    #     return fields.Datetime.now()
 
     name = fields.Char(string="Title", default="Unknown", required=True)
     description = fields.Text()
@@ -164,12 +196,14 @@ class EstateProperty(models.Model):
                 raise ValidationError("Garden cannot be bigger than living area")
 
 
+
     def open_offers(self):
+        view_id = self.env.ref('estate.estate_property_offer_tree').id
         return {
             "name":"Offers",
             "type":"ir.actions.act_window",
             "res_model":"estate.property.offer",
-            "views":"[[False,'tree']]",
+            "views":[[view_id, 'tree']],
             "target":"new",
-            "domain":"[('property_id','=','self.id')]"
+            "domain": [('property_id', '=', self.id)]
         }
