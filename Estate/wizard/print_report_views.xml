@@ -16,12 +16,4 @@
             </form>
         </field>
     </record>
-
-    <!-- Add action for the wizard -->
-    <record id="action_print_report_wizard_action" model="ir.actions.act_window">
-        <field name="name">Print Report</field>
-        <field name="res_model">print.report</field>
-         <field name="target">new</field>
-        <field name="view_mode">form</field>
-    </record>
 </odoo>

@@ -23,7 +23,7 @@ access_books_publisher_admin,access_books_publisher,model_books_publisher,estate
 access_books_publisher_recept,access_books_publisher,model_books_publisher,estate.group_estate_reception,1,1,1,1
 #access_my_test,access_my_test,model_my_test,estate.group_estate_admin,1,1,1,1
 #access_m2,access_m2,model_m2,estate.group_estate_admin,1,1,1,1
-access_create_sold_invoice_admin,access_create_sold_invoice_admin,model_estate_property_offer,estate.group_estate_admin,1,1,1,1
+access_create_sold_invoice_admin,access_create_sold_invoice_admin,model_create_sold_invoice,estate.group_estate_admin,1,1,1,1
 access_confirm_accept_admin,access_confirm_accept_admin,model_confirm_accept,estate.group_estate_admin,1,1,1,1
 access_print_report_admin,access_print_report_admin,model_print_report,estate.group_estate_admin,1,1,1,1
 

@@ -108,6 +108,7 @@ class EstateProperty(models.Model):
 
 
     name = fields.Char(string="Title", default="Unknown", required=True)
+    owner_id = fields.Many2one('res.partner')
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(default=lambda self: fields.Datetime.now(), copy=False)

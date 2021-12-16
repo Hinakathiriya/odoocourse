@@ -56,6 +56,13 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+     <record id="action_print_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Print Report</field>
+        <field name="res_model">print.report</field>
+         <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+
     <menuitem id="menu_real_estate_root" name="Real Estate">
         <menuitem id="menu_real_estate_advertisements" name="Advertisements">
             <menuitem id="menu_real_estate_action" action="real_estate_properties_action"/>
@@ -69,11 +76,11 @@
     <menuitem id="menu_real_estate_property_type" name="Setting" parent="menu_real_estate_root"/>
     <menuitem id="menu_real_estate_property_type_action" parent="menu_real_estate_property_type" action="real_estate_properties_type_action"/>
 
-    <menuitem id="menu_real_estate_print_reporting" name="Reporting" parent="menu_real_estate_root"/>
-    <menuitem id="menu_reporting_print_book" parent="menu_real_estate_print_reporting" action="estate.action_print_report_wizard_action"/>
+    <menuitem id="menu_real_estate_print_report" name="Reporting" parent="menu_real_estate_root"/>
+    <menuitem id="menu_reporting_print_book" parent="menu_real_estate_print_report" action="estate.action_print_report_wizard_action"/>
 
 
-     <menuitem id="menu_real_estate_root" name="Real Estate">
+    <menuitem id="menu_real_estate_root" name="Real Estate">
         <menuitem id="menu_real_estate_library_action" name="Library">
     	     <menuitem id="menu_real_estate_library" action="real_estate_library_action"/>
               <menuitem id="menu_real_estate_author" action="real_estate_author_action"/>

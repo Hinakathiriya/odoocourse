@@ -159,6 +159,18 @@
         </field>
     </record>
 
+    <record id="estate_property_pivot" model="ir.ui.view">
+        <field name="name">Estate Property Pivot</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <pivot string="Property Prices">
+                <field name="name" type="row"/>
+                <field name="property_type_id" type="col"/>
+                <!-- <field name="expected_price" type="measure"/> -->
+            </pivot>
+        </field>
+    </record>
+
     <record id="estate_property_gantt" model="ir.ui.view">
         <field name="name">Estate Property Gantt</field>
         <field name="model">estate.property</field>

@@ -14,7 +14,7 @@
         <field name="report_file">estate.property_detail</field>
         <field name="print_report_name">'Property Detail - %s' % (object.name)</field>
         <field name="binding_model_id" ref="model_estate_property"/>
-        <field name="paperformat_id" ref="estate.my_paper_format"/>
+        <!-- <field name="paperformat_id" ref="estate.my_paper_format"/> -->
         <!-- <field name="binding_type">report</field> -->
     </record>
 </odoo>
