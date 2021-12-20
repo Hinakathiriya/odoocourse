@@ -4,6 +4,7 @@
     'category' : 'Estate',
     'application' : True,
     'data' : [
+        'data/seq.xml',
     	'security/access_security.xml',
     	'security/ir.model.access.csv',
     	'views/estate_menus.xml',

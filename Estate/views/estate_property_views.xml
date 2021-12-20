@@ -159,6 +159,7 @@
         </field>
     </record>
 
+
     <record id="estate_property_pivot" model="ir.ui.view">
         <field name="name">Estate Property Pivot</field>
         <field name="model">estate.property</field>
@@ -166,10 +167,20 @@
             <pivot string="Property Prices">
                 <field name="name" type="row"/>
                 <field name="property_type_id" type="col"/>
-                <!-- <field name="expected_price" type="measure"/> -->
             </pivot>
         </field>
     </record>
+
+     <record id="estate_report_graph" model="ir.ui.view">
+        <field name="name">Estate Report Graph</field>
+        <field name="model">estate.report</field>
+        <field name="arch" type="xml">
+            <graph string="Estate">
+                <field name="property_state"/>
+            </graph>
+        </field>
+    </record>
+
 
     <record id="estate_property_gantt" model="ir.ui.view">
         <field name="name">Estate Property Gantt</field>
@@ -204,6 +215,7 @@
 		        </header>
                 <sheet>
                     <div class="oe_title">
+                        <h1><field name="ref_seq" readonly="1"/></h1>
                         <h1><field name="name"/></h1>
                         <field name="property_type_id" options="{'no_create':True, 'no_open': True}"/>
                         <group>
@@ -214,6 +226,13 @@
                         <group>
                             <field name="image" widget="image" class="oe_avatar"/>
                             <field name="validity"/>
+                        </group>
+                            <group>
+                            <field name="best_price"/>
+                            <field name="date_deadline"/>
+                        </group>
+                        <group>
+                            <field name="owner_id" string="Property Owner" required="1"/>
                         </group>
                     </group>
                     </div>

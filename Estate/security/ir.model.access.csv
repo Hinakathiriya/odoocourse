@@ -26,5 +26,8 @@ access_books_publisher_recept,access_books_publisher,model_books_publisher,estat
 access_create_sold_invoice_admin,access_create_sold_invoice_admin,model_create_sold_invoice,estate.group_estate_admin,1,1,1,1
 access_confirm_accept_admin,access_confirm_accept_admin,model_confirm_accept,estate.group_estate_admin,1,1,1,1
 access_print_report_admin,access_print_report_admin,model_print_report,estate.group_estate_admin,1,1,1,1
+access_estate_report_admin,access_estate_report_admin,model_estate_report,estate.group_estate_admin,1,1,1,1
+
+
 
 

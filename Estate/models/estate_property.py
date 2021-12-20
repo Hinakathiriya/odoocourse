@@ -106,7 +106,7 @@ class EstateProperty(models.Model):
     #_sql_constraints = [('positive_price', 'check(expected_price >0)', 'Enter positive value')]
     _order = "id desc"
 
-
+    ref_seq = fields.Char(string="Reference ID", default="New")
     name = fields.Char(string="Title", default="Unknown", required=True)
     owner_id = fields.Many2one('res.partner')
     description = fields.Text()
