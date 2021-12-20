@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="real_marble_details_action" model="ir.actions.act_window">
+        <field name="name">Marble Details</field>
+        <field name="res_model">marble.details</field>
+        <field name="view_mode">tree,form</field>
+        <!--<field name="context">{'search_default_state':'new'}</field>-->
+    </record>
+
+     <record id="real_marble_order_action" model="ir.actions.act_window">
+        <field name="name">Marble Order</field>
+        <field name="res_model">marble.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="real_marble_details_line_action" model="ir.actions.act_window">
+        <field name="name">Marble Details Line</field>
+        <field name="res_model">marble.details.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_marble_root" name="Marble">
+        <menuitem id="menu_marble_details" name="Marble Details">
+            <menuitem id="menu_marble_details_action" action="real_marble_details_action"/>
+        </menuitem>
+    </menuitem>
+
+    <menuitem id="menu_marble_root" name="Marble">
+        <menuitem id="menu_marble_order" name="Marble Order">
+            <menuitem id="menu_marble_order_action" action="real_marble_order_action"/>
+        </menuitem>
+    </menuitem>
+
+    <menuitem id="menu_marble_root" name="Marble">
+        <menuitem id="menu_marble_details_line_order" name="Marble Details Line">
+            <menuitem id="menu_marble_details_line_action" action="real_marble_details_line_action"/>
+        </menuitem>
+    </menuitem>
+
+</odoo>

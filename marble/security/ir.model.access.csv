@@ -1,0 +1,7 @@
+#id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+#access_marble_marble,marble.marble,model_marble_marble,base.group_user,1,1,1,1
+
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_marble_details,access_marble_details,model_marble_details,base.group_user,1,1,1,1
+access_marble_details_line,access_marble_details_line,model_marble_details_line,base.group_user,1,1,1,1
+access_marble_order,access_marble_order,model_marble_order,base.group_user,1,1,1,1
