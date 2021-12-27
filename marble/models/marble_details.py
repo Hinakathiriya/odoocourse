@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
 
 class MarbleOrder(models.Model):
     _name = 'marble.order'
@@ -8,9 +9,9 @@ class MarbleOrder(models.Model):
     vendor_name = fields.Many2one('res.partner')
     date = fields.Date()
 
-class MarbleDetailsLine(models.Model):
-    _name = 'marble.details.line'
-    _description = 'Marble Details Line'
+#class MarbleDetailsLine(models.Model):
+ #   _name = 'marble.details.line'
+#    _description = 'Marble Details Line'
 
     
 
@@ -27,13 +28,18 @@ class MarbleDetails(models.Model):
     quantity = fields.Integer()
     uom = fields.Integer()
     unit_price = fields.Float()
-    total_price = fields.Float()
+    total_price = fields.Float(compute="_compute_price")
 
-#\     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    @api.depends('quantity', 'unit_price')
+    def _compute_price(self):
+        for record in self:
+            record.total_price = record.quantity * record.unit_price
+
+    #def action_transfer(self):
+     #   for record in self:
+      #      if record.state == 'transfer':
+       #         raise UserError("Transfer...")
+
+    #def _inverse_area(self):
+     #   for record in self:
+      #      record.living_area = record.garden_area = record.total_area / 2

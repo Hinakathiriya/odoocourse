@@ -12,11 +12,111 @@
         </field>
     </record>
 
+     <!--<record id="marble_details_calender" model="ir.ui.view">
+        <field name="name">Marble Details Calender</field>
+        <field name="model">marble.details</field>
+        <field name="arch" type="xml">
+            <calendar string="Properties" date_start="date_availability" date_stop="date_deadline" color="id">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="marble_details_kanban" model="ir.ui.view">
+        <field name="name">Marble Details Kanban</field>
+        <field name="model">marble.details</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="state"/>
+                <field name="image"/>
+                <field name="id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <t t-if="record.image.raw_value">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('estate.property','image',record.id.raw_value)"/>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="_s +'/base/static/img/avatar_grey.png'" alt="Avatar"/>
+                                </div>
+                            </t>
+                            <div class="o_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <ul>
+                                    <li><field name="date_availability"/></li>
+                                    <li><field name="expected_price"/></li>
+
+                                     <button class="btn btn-primary" name="open_offers" type="object">
+                                        <li><field name="property_offer_ids"/></li>
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="marble_details_pivot" model="ir.ui.view">
+        <field name="name">Marble Details Pivot</field>
+        <field name="model">marble.details</field>
+        <field name="arch" type="xml">
+            <pivot string="Property Prices">
+                <field name="name" type="row"/>
+                <field name="property_type_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+     <record id="marble_details_graph" model="ir.ui.view">
+        <field name="name">Marble Details Graph</field>
+        <field name="model">marble.details</field>
+        <field name="arch" type="xml">
+            <graph string="Estate">
+                <field name="property_state"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record id="marble_details_gantt" model="ir.ui.view">
+        <field name="name">Marble Details Gantt</field>
+        <field name="model">marble.details</field>
+        <field name="arch" type="xml">
+            <gantt string="Date Available" date_start="date_availability" date_stop="date_deadline">
+                <field name="name"/>
+            </gantt>
+        </field>
+    </record>
+
+     <record id="marble_details_graph" model="ir.ui.view">
+        <field name="name">Estate Property Graph</field>
+        <field name="model">marble.details</field>
+        <field name="arch" type="xml">
+            <graph string="Property Price">
+                <field name="property_type_id"/>
+                <field name="expected_price" type="measrure"/>
+            </graph>
+        </field>
+    </record>-->
+
+
     <record id="marble_details_form" model="ir.ui.view">
         <field name="name">Marble details</field>
         <field name="model">marble.details</field>
         <field name="arch" type="xml">
             <form>
+                <!--<header>
+                    <button name="action_transfer" type="object" string="Transfer"/>
+		        </header>-->
                 <sheet>
                     <div class="oe_title">
                         <h1><field name="pro_name"/></h1>
@@ -25,7 +125,7 @@
                         <page string="Marble Details">
                             <group>
                                 <group>
-                                    <field name="quantity" widget="many2one_tags"/>
+                                    <field name="quantity"/>
                                     <field name="uom"/>
                                 </group>
                                 <group>
@@ -67,7 +167,7 @@
         </field>
     </record>
 
-    <record id="marble_details_line_tree" model="ir.ui.view">
+    <!--<record id="marble_details_line_tree" model="ir.ui.view">
         <field name="name">Marble details line</field>
         <field name="model">marble.details.line</field>
         <field name="arch" type="xml">
@@ -101,6 +201,6 @@
                 </sheet>
             </form>
         </field>
-    </record>
+    </record>-->
 
 </odoo>

@@ -20,15 +20,17 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','account'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'wizard/marble_details_line.xml'
         'views/marble_details_views.xml',
         'views/marble_manus.xml',
         'views/templates.xml',
         'views/views.xml'
+
     ],
     # only loaded in demonstration mode
     'demo': [

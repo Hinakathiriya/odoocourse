@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_marble_details_line" model="ir.ui.view">
+        <field name="name">Marble details line</field>
+        <field name="model">marble.details.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+                <footer>
+                    <button name="marble_details_line" class="btn-primary" type="object" string="Make Invoice"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--<record id="real_marble_details_line_action" model="ir.actions.act_window">
+        <field name="name">change Marble</field>
+        <field name="res_model">marble.details.line</field>
+        <field name="view_mode">form</field>
+    </record>-->
+</odoo>
