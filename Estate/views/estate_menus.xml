@@ -56,14 +56,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-     <record id="action_print_report_wizard_action" model="ir.actions.act_window">
+    <record id="action_print_report_wizard_action" model="ir.actions.act_window">
         <field name="name">Print Report</field>
         <field name="res_model">print.report</field>
          <field name="target">new</field>
         <field name="view_mode">form</field>
     </record>
 
-      <record id="estate_report_action" model="ir.actions.act_window">
+    <record id="estate_report_action" model="ir.actions.act_window">
         <field name="name">Estate Report</field>
         <field name="res_model">estate.report</field>
         <field name="view_mode">graph</field>
